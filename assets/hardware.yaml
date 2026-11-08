@@ -1,0 +1,9 @@
+# Hardware inventory. Keep serial numbers, addresses, and hostnames out: this repository may be public.
+# Example entry (delete it and add your own):
+# - name: Main workstation
+#   role: what it is used for
+#   type: computer         # computer | server | sbc | network | storage | phone | other
+#   os: operating system and release
+#   specs: "CPU; RAM; storage; anything that affects planning"
+#   status: active         # active | spare | broken | planned
+#   notes: ""

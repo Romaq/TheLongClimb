@@ -1,0 +1,9 @@
+# Expertise inventory. Levels: novice | working | advanced | expert (definitions: surveys/README.md)
+# history: add one line whenever a level or milestone changes, instead of overwriting.
+# Example entry (delete it and add your own):
+# - name: Example skill
+#   level: novice
+#   updated: 2026-01-01
+#   history:
+#     - { date: 2026-01-01, level: novice, note: "what you can do, in your own words" }
+#   notes: ""

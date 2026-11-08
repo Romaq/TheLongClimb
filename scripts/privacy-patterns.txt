@@ -1,0 +1,20 @@
+# privacy-patterns.txt - one pattern per line: NAME<TAB>PCRE-REGEX (grep -P).
+# Edit freely. Lines starting with # are ignored. Harmless matches go in privacy-allow.txt.
+ipv4-address	\b(?:(?:25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|1?\d?\d)\b
+ipv6-address	(?:\b(?:[0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4}\b|(?=[0-9A-Fa-f:]*\d)(?:[0-9A-Fa-f]{1,4}:){1,6}:(?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4}){0,5})?)
+mac-address	\b(?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}\b
+email-address	\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b
+us-phone-number	(?<!\d)(?:\+?1[ .-]?)?\(?\d{3}\)?[ .-]\d{3}[ .-]\d{4}(?!\d)
+private-key-block	-----BEGIN [A-Z ]*PRIVATE KEY-----
+ssh-public-key	\bssh-(?:rsa|ed25519|dss)\s+AAAA[0-9A-Za-z+/=]{20,}
+github-token	\b(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,})\b
+aws-access-key	\bAKIA[0-9A-Z]{16}\b
+api-key-prefix	\b(?:sk-ant-|sk-|xox[baprs]-|AIza)[A-Za-z0-9_-]{16,}
+credential-assignment	(?i)\b(?:password|passwd|passphrase|secret|token|api[_-]?key)\b\s*[:=]\s*['"]?[^\s'"]{6,}
+url-with-credentials	[a-zA-Z][a-zA-Z0-9+.-]*://[^/\s:@]+:[^/\s@]+@
+home-directory-path	(?:/home|/Users)/(?!\[|<|\$|USER\b|user\b|username\b|YOU\b|you\b)[A-Za-z0-9._-]+
+windows-user-path	[A-Za-z]:\\Users\\(?!\[|<|USER\b|user\b|username\b)[A-Za-z0-9._ -]+
+uuid	\b[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\b
+serial-number	(?i)\bserial(?: number)?\s*[:=]\s*(?!<|\[|REDACTED|N/A|none)\S{4,}
+exact-kernel-version	\b\d+\.\d+\.\d+-\d+(?:-[a-z0-9]+)?-(?:generic|pve|amd64|lowlatency)\b
+lan-hostname	\b[A-Za-z0-9-]+\.(?:local|lan|home\.arpa|internal)\b
