@@ -1,0 +1,10 @@
+short_id,full_name,free_to_modify,conditions,flag,tlc_note
+MIT,MIT License,yes,Keep the copyright and license notice,ok,
+Apache-2.0,Apache License 2.0,yes,Keep notices and mark changes,ok,
+CC0-1.0,Creative Commons Zero v1.0 Universal,yes,None,ok,
+LGPL-3.0,GNU Lesser General Public License v3.0,yes,Changes to the library itself stay under the same license with source available,review,
+MPL-2.0,Mozilla Public License 2.0,yes,Changed files stay under the same license with source available,review,
+GPL-3.0,GNU General Public License v3.0,yes,Derived work must also be GPL with source available,review,
+ARR,All Rights Reserved,no,Ask the author for written permission before modifying or redistributing,danger,
+other,Custom or unlisted license,ask,Read the license text and add a row for it here,danger,
+unknown,License not yet checked,ask,Treat as ARR until the page is read,danger,
