@@ -48,6 +48,7 @@ Required: `slug`, `common_name`, `loader`, `group`, `status`.
 | `license` | A `short_id` from `licenses.csv`. |
 | `sinytra` | Only for `loader=fabric`: `untested`, `works`, or `fails`. Blank for everything else. A failure is reported upstream, with the report recorded in the notes file. |
 | `memory_impact` | 0 to 5, see below. Blank means not measured, which is different from 0. |
+| `cpu_impact` | 0 to 5, see below. Blank means not measured, which is different from 0. |
 | `requires` | Hard dependencies: slugs. |
 | `soft_requires` | Optional dependencies: slugs. |
 | `competes_with` | Slugs of rivals when only one will ship (both rows stay `evaluating`). |
@@ -57,7 +58,7 @@ Required: `slug`, `common_name`, `loader`, `group`, `status`.
 
 ## Loader and Fabric elements
 
-NeoForge is the target. A Fabric element is a candidate only through Sinytra Connector. A Fabric row stays out of `selected` and `core` until `sinytra` is `works`. Forge-only elements are unlikely and are recorded with `loader=unknown` and a note until a value is agreed. A Fabric element that fails under the connector is a finding to report upstream, and the row becomes `blocked` with the report noted.
+NeoForge is the target. A Fabric element is a candidate only through Sinytra Connector. A Fabric row stays out of `selected` and `optional` until `sinytra` is `works`. Forge-only elements are unlikely and are recorded with `loader=unknown` and a note until a value is agreed. A Fabric element that fails under the connector is a finding to report upstream, and the row becomes `blocked` with the report noted.
 
 ## Status
 
@@ -65,8 +66,8 @@ NeoForge is the target. A Fabric element is a candidate only through Sinytra Con
 |---|---|
 | `candidate` | Named but not yet evaluated. |
 | `evaluating` | Under test, or one side of a head-to-head. |
-| `selected` | Chosen for the pack, but the pack works without it. |
-| `core` | Required. The pack does not work without it. |
+| `selected` | Ships in the pack, and the pack cannot function without it. |
+| `optional` | Ships in the pack, but the pack works without it. These are what can be dropped if players object to the mod count. |
 | `blocked` | Wanted but cannot ship yet: no NeoForge build, a failed Sinytra test, a license problem, or unsupported. The reason and next step go in the notes. |
 | `reference` | Studied for ideas, not shipped. |
 | `rejected` | Decided against. The row stays. |
@@ -77,9 +78,9 @@ NeoForge is the target. A Fabric element is a candidate only through Sinytra Con
 
 Add a group only when a real element will not fit an existing one. Use `unsorted` for scratch ideas until they are placed.
 
-## Memory impact
+## Memory and CPU impact
 
-The question this field answers: how much running memory does this element occupy, and for how long? It is a decision aid. Combined with `status`, it shows which nice-to-have elements are not worth their cost.
+The question this field answers: how much running memory does this element occupy, and for how long? It is a decision aid. Combined with `status`, it shows which `optional` elements are not worth their cost.
 
 | Value | Meaning | Provisional size above baseline |
 |---|---|---|
@@ -94,7 +95,20 @@ The MB figures are placeholders chosen so each step is roughly three times the l
 
 How to measure when testing starts: run the pack's baseline and the baseline plus the element in the same world with the same settle time, and compare memory after a garbage collection. Record the tool, the pack version, the side (client or server), and the result in `notes/<slug>.md`. Client and server memory differ, so say which one the number describes.
 
-This field does not measure processing cost (frame time or server tick time). Add a separate field if that turns out to matter.
+### CPU impact
+
+`cpu_impact` is the processing twin of `memory_impact`. It is measured as a share of the time budget: 50 ms per server tick at 20 ticks per second, or about 16.7 ms per frame at 60 FPS on a client. One scale then covers both sides.
+
+| Value | Meaning | Provisional share of the budget |
+|---|---|---|
+| 0 | No recurring cost | none |
+| 1 | Negligible | under 1% (under 0.5 ms per tick) |
+| 2 | Small | 1 to 4% (0.5 to 2 ms) |
+| 3 | Noticeable | 4 to 10% (2 to 5 ms) |
+| 4 | Large | 10 to 20% (5 to 10 ms) |
+| 5 | Major factor | over 20% (over 10 ms), or causes spikes |
+
+These bands are placeholders, not measurements. Measure the same way as memory: baseline versus baseline plus the element, same world, same settle time, comparing average server tick time (MSPT) or frame time. Spark reports TPS, MSPT and CPU use. Record the tool, pack version and side in `notes/<slug>.md`.
 
 ## Licenses
 

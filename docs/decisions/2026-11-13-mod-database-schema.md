@@ -8,8 +8,8 @@ Date: 2026-11-13. Status: accepted by the owner (Turns 14 and 15). Files: `docs/
 - The key is a permanent slug, assigned once and never derived, changed, or reused.
 - Dependencies are stored once, forward only (`requires`, `soft_requires`). Reverse lookups are made by filtering.
 - `loader` names what runs the element (`neoforge`, `fabric`, `datapack`, `resourcepack`, `shaderpack`, `modpack`, `unknown`). Fabric elements are tracked through a `sinytra` result.
-- `status` replaces the old 1 to 5 importance and the sort order. Both are dropped.
-- `memory_impact` (0 to 5, blank when unmeasured) replaces file size as the cost measure. Its MB bands are provisional until profiled.
+- `status` replaces the old 1 to 5 importance and the sort order. Both are dropped. In `status`, `selected` means the pack cannot function without the element, and `optional` means it ships but the pack works without it. There is no `core` value.
+- `memory_impact` and `cpu_impact` (0 to 5, blank when unmeasured) replace file size as the cost measures. Their bands are provisional until profiled. CPU is a share of the tick or frame budget, so one scale covers server and client.
 - A `licenses.csv` table holds short IDs with what each means for TLC.
 
 ## Rejected
@@ -21,7 +21,6 @@ Date: 2026-11-13. Status: accepted by the owner (Turns 14 and 15). Files: `docs/
 
 ## Open
 
-- Whether processing cost (frame or tick time) needs its own field.
-- Recalibrating the memory bands after the first profiling round.
+- Recalibrating the memory and CPU bands after the first profiling round.
 - The Modrinth-only distribution question.
 - A script to check slugs and dependency references. Wait until the table has real rows.
